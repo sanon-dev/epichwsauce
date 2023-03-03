@@ -43,7 +43,7 @@ export default function App() {
               iconName = 'ios-home-outline';
             } else if (route.name === 'Saved Scans') {
               iconName = focused ? 'ios-list' : 'ios-list-outline';
-            } else if (route.name === 'Scan') {
+            } else if (route.name === 'Upload & Scan') {
               iconName = 'ios-camera-outline';
             }
 
@@ -55,7 +55,7 @@ export default function App() {
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Scan" component={ScanScreen} />
+        <Tab.Screen name="Upload & Scan" component={ScanScreen} />
         <Tab.Screen name="Saved Scans" component={SavedScanScreen} />
       </Tab.Navigator>
     </NavigationContainer>
