@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 
-function LoginView() {
+function LoginView({ onBackPress }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -24,7 +24,10 @@ function LoginView() {
         onChangeText={setPassword}
         value={password}
       />
-      <Button title="Login" onPress={handleLogin} />
+      <View style={styles.buttonContainer}>
+        <Button title="Cancel" onPress={onBackPress} color="#888" />
+        <Button title="Login" onPress={handleLogin} />
+      </View>
     </View>
   );
 }
@@ -44,6 +47,12 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     width: '100%',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginTop: 20,
   },
 });
 

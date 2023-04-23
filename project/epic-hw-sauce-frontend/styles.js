@@ -10,6 +10,9 @@ export const styles = StyleSheet.create({
   homeContainer: {
     ...this.centerContainer,
   },
+  loginRegisterContainer: {
+    ...this.centerContainer,
+  },  
   scanUploadContainer: {
     ...this.centerContainer,
     backgroundColor: 'lightgreen',
@@ -77,5 +80,31 @@ export const styles = StyleSheet.create({
   emptyText: {
     fontSize: 20,
     color: '#666666',
+  },
+  heading: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    color: '#333333',
+    textAlign: 'center',
+  },
+  formContainer: {
+    // styles for the login form fields
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  button: {
+    margin: 10,
+    borderRadius: 20,
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    marginLeft: 5,
   },
 });

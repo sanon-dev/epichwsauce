@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 
-function RegisterView() {
+function RegisterView({ onBackPress, onRegister }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const handleRegister = () => {
     // handle register logic here
+    onRegister();
   };
 
   return (
@@ -32,7 +35,22 @@ function RegisterView() {
         onChangeText={setConfirmPassword}
         value={confirmPassword}
       />
-      <Button title="Register" onPress={handleRegister} />
+      <TextInput
+        style={styles.input}
+        placeholder="First Name"
+        onChangeText={setFirstName}
+        value={firstName}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Last Name"
+        onChangeText={setLastName}
+        value={lastName}
+      />
+      <View style={styles.buttonContainer}>
+        <Button title="Cancel" onPress={onBackPress} color="#FF7043" />
+        <Button title="Register" onPress={handleRegister} color="#2196F3" />
+      </View>
     </View>
   );
 }
@@ -51,6 +69,12 @@ const styles = StyleSheet.create({
     borderColor: '#C4C4C4',
     padding: 10,
     marginBottom: 10,
+    width: '100%',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20,
     width: '100%',
   },
 });
