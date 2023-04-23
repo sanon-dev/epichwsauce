@@ -1,20 +1,38 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import axios from "axios";
 
 function RegisterView({ onBackPress, onRegister }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [username, setUsername] = useState('');
 
-  const handleRegister = () => {
-    // handle register logic here
-    onRegister();
+  const handleRegister = async () => {
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/v1/api/profiles/", {
+        username: username,
+        email: email,
+        password: password
+      });
+      console.log(response.data);
+      onRegister();
+    } catch (error) {
+      if (error.response && error.response.status) {
+        console.log(`Error: ${error.response.status}`);
+      } else {
+        console.log(`Error: ${error.message}`);
+      }
+    }      
   };
 
   return (
     <View style={styles.formContainer}>
+      <TextInput
+        style={styles.input}
+        placeholder="Username"
+        onChangeText={setUsername}
+        value={username}
+      />
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -27,25 +45,6 @@ function RegisterView({ onBackPress, onRegister }) {
         secureTextEntry={true}
         onChangeText={setPassword}
         value={password}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Confirm Password"
-        secureTextEntry={true}
-        onChangeText={setConfirmPassword}
-        value={confirmPassword}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="First Name"
-        onChangeText={setFirstName}
-        value={firstName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Last Name"
-        onChangeText={setLastName}
-        value={lastName}
       />
       <View style={styles.buttonContainer}>
         <Button title="Cancel" onPress={onBackPress} color="#FF7043" />
