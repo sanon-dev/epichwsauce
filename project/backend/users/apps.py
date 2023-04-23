@@ -1,6 +1,8 @@
 from django.apps import AppConfig
 
 
-class EpichwsauceConfig(AppConfig):
+class UsersConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'epichwsauce'
+    name = 'users'
+    verbose_name = 'Users'
+
