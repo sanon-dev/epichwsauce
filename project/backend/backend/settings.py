@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    #'users',
+    'document_parser',
     'users.apps.UsersConfig',
 ]
 
@@ -87,7 +87,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'your_database_name',
-        'USER': 'your_database_username',
+        'USER': 'aj062',
         'PASSWORD': 'your_database_password',
         'HOST': 'localhost',
         'PORT': '5432',

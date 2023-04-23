@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 import io
-from PyPDF2 import PdfFileReader, utils
+from PyPDF2 import PdfFileReader
 
 from .models import ParsedDocument
 from users.models import Document
