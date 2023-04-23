@@ -14,12 +14,10 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        tabBarOptions={{
+        screenOptions={({ route }) => ({
           labelStyle: { fontSize: 14 },
           activeTintColor: "#2196F3",
           inactiveTintColor: "#999999",
-        }}
-        screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
             let iconName;
 
