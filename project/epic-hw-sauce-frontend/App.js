@@ -1,77 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Camera } from 'expo-camera';
-
-function HomeScreen() {
-  return (
-    <View style={{ backgroundColor: 'cadetblue', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
-
-function ScanScreen() {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [type, setType] = useState(Camera.Constants.Type.back);
-
-  useEffect(() => {
-    const requestCameraPermission = async () => {
-      try {
-        const { status } = await Camera.requestCameraPermissionsAsync();
-        setHasPermission(status === 'granted');
-      } catch (error) {
-        console.error('Error requesting camera permissions:', error);
-        setHasPermission(false);
-      }
-    };
-
-    requestCameraPermission();
-  }, []);
-
-  if (hasPermission === null) {
-    return <View />;
-  }
-  if (hasPermission === false) {
-    return (
-      <View style={styles.container}>
-        <Text>No access to camera</Text>
-      </View>
-    );
-  }
-
-  return (
-    <View style={styles.container}>
-      <Camera style={styles.camera} type={type} />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'cadetblue',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  camera: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-});
-
-function SavedScanScreen() {
-  return (
-    <View style={{ backgroundColor: 'cadetblue', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Saved scans will go here</Text>
-    </View>
-  );
-}
+import React from "react";
+import { AppRegistry } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { name as appName } from "./app.json";
+import Icon from "react-native-vector-icons/FontAwesome5";
+import HomeScreen from "./components/home_screen";
+import ScanUploadScreen from "./components/scan_upload";
+import SavedScansScreen from "./components/saved_scans";
 
 const Tab = createBottomTabNavigator();
 
@@ -79,29 +14,33 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
+        tabBarOptions={{
+          labelStyle: { fontSize: 14 },
+          activeTintColor: "#2196F3",
+          inactiveTintColor: "#999999",
+        }}
         screenOptions={({ route }) => ({
-          tabBarIcon: ({ focused, color, size }) => {
+          tabBarIcon: ({ color, size }) => {
             let iconName;
 
-            if (route.name === 'Home') {
-              iconName = 'ios-home-outline';
-            } else if (route.name === 'Saved Scans') {
-              iconName = focused ? 'ios-list' : 'ios-list-outline';
-            } else if (route.name === 'Upload & Scan') {
-              iconName = 'ios-camera-outline';
+            if (route.name === "Home") {
+              iconName = "home";
+            } else if (route.name === "Scan & Upload") {
+              iconName = "camera";
+            } else if (route.name === "Saved Scans") {
+              iconName = "bookmark";
             }
 
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
+            return <Icon name={iconName} size={size} color={color} />;
           },
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Upload & Scan" component={ScanScreen} />
-        <Tab.Screen name="Saved Scans" component={SavedScanScreen} />
+        <Tab.Screen name="Scan & Upload" component={ScanUploadScreen} />
+        <Tab.Screen name="Saved Scans" component={SavedScansScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
+
+AppRegistry.registerComponent(appName, () => Main);
