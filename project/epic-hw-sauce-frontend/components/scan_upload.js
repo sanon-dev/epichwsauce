@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { styles } from '../styles.js';
 function ScanUploadScreen() {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, styles.centerContainer, styles.scanUploadContainer]}>
       <Text style={styles.heading}>Scan & Upload</Text>
       <View style={styles.buttonContainer}>
         <Button mode="contained" color="#2196F3" style={styles.button} onPress={() => console.log('Pressed scan')}>
@@ -20,5 +20,4 @@ function ScanUploadScreen() {
     </View>
   );
 }
-
 export default ScanUploadScreen;

@@ -6,8 +6,8 @@ import { styles } from '../styles.js';
 
 function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.heading}>Welcome to EpicHWSauce</Text>
+    <View style={[styles.container, styles.centerContainer]}>
+      <Text style={styles.heading}>Welcome to MyApp</Text>
       <Text style={styles.subheading}>The best way to manage your homework</Text>
       <View style={styles.buttonContainer}>
         <Button mode="contained" color="#2196F3" style={styles.button} onPress={() => console.log('Pressed login')}>
@@ -22,5 +22,7 @@ function HomeScreen() {
     </View>
   );
 }
+
+
 
 export default HomeScreen;
