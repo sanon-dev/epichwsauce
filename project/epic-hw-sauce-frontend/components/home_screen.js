@@ -5,6 +5,8 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import LoginView from "./login_view.js";
 import RegisterView from "./register_view.js";
 import UserInfoView from "./user_info_view.js";
+import { DefaultTheme } from 'react-native-paper';
+
 
 function HomeScreen() {
   const [showLogin, setShowLogin] = useState(false);
@@ -86,7 +88,7 @@ function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F7F7F7",
+    backgroundColor: DefaultTheme.colors.background,
     justifyContent: "center",
     alignItems: "center",
   },

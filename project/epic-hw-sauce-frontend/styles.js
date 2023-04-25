@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { DefaultTheme } from 'react-native-paper';
 
 export const styles = StyleSheet.create({
   centerContainer: {
     flex: 1,
-    backgroundColor: '#F7F7F7',
+    backgroundColor: DefaultTheme.colors.background,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -15,11 +16,11 @@ export const styles = StyleSheet.create({
   },  
   scanUploadContainer: {
     ...this.centerContainer,
-    backgroundColor: 'lightgreen',
+    backgroundColor: DefaultTheme.colors.background,
   },
   savedScansContainer: {
     flex: 1,
-    backgroundColor: 'orange',
+    backgroundColor: DefaultTheme.colors.background,
     padding: 10,
   },
   heading: {

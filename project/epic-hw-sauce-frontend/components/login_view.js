@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import axios from "axios";
 import LoadingOverlay from "./loading_overlay";
+import { DefaultTheme } from 'react-native-paper';
 
 function LoginView({ onBackPress, onLogin }) {
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ function LoginView({ onBackPress, onLogin }) {
       const token = response.data.auth_token;
       // save the token in local storage or state management library
       console.log(token);
-      onLogin();
+      onLogin(email);
     } catch (error) {
       if (error.response && error.response.status) {
         console.log(`Error: ${error.response.status}`);
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
   formContainer: {
     paddingHorizontal: 20,
     paddingVertical: 40,
-    backgroundColor: "#F7F7F7",
+    backgroundColor: DefaultTheme.colors.background,
     width: "100%",
     alignItems: "center",
   },

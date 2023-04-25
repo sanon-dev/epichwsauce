@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TextInput, Button } from "react-native";
 import axios from "axios";
-import LoadingOverlay from './loading_overlay';
+import LoadingOverlay from "./loading_overlay";
+import { DefaultTheme } from 'react-native-paper';
 
 function RegisterView({ onBackPress, onRegister }) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async () => {
@@ -16,10 +17,10 @@ function RegisterView({ onBackPress, onRegister }) {
       const response = await axios.post(url, {
         username: username,
         email: email,
-        password: password
+        password: password,
       });
       console.log(response.data);
-      onRegister();
+      onRegister(username);
     } catch (error) {
       if (error.response && error.response.status) {
         console.log(`Error: ${error.response.status}`);
@@ -29,7 +30,7 @@ function RegisterView({ onBackPress, onRegister }) {
       onBackPress();
     } finally {
       setIsLoading(false);
-    }   
+    }
   };
 
   return (
@@ -66,23 +67,23 @@ const styles = StyleSheet.create({
   formContainer: {
     paddingHorizontal: 20,
     paddingVertical: 40,
-    backgroundColor: '#F7F7F7',
-    width: '100%',
-    alignItems: 'center',
+    backgroundColor: DefaultTheme.colors.background,
+    width: "100%",
+    alignItems: "center",
   },
   input: {
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: '#C4C4C4',
+    borderColor: "#C4C4C4",
     padding: 10,
     marginBottom: 10,
-    width: '100%',
+    width: "100%",
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 20,
-    width: '100%',
+    width: "100%",
   },
 });
 
