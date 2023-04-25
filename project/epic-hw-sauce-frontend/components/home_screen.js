@@ -4,10 +4,13 @@ import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import LoginView from './login_view.js';
 import RegisterView from './register_view.js';
+import UserInfoView from './user_info_view.js';
 
 function HomeScreen() {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState('')
 
   const handleLoginButtonPress = () => {
     setShowLogin(true);
@@ -18,11 +21,18 @@ function HomeScreen() {
   };
 
   const handleLogin = () => {
-    // handle login logic here
+    setUsername(username);
+    setIsLoggedIn(true);
   };
 
-  const handleRegister = () => {
-    // handle register logic here
+  const handleRegister = (username) => {
+    setUsername(username);
+    setIsLoggedIn(true);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUsername('');
   };
 
   const handleBackButtonPress = () => {
@@ -36,6 +46,8 @@ function HomeScreen() {
         <LoginView onBackPress={handleBackButtonPress} onLogin={handleLogin} />
       ) : showRegister ? (
         <RegisterView onBackPress={handleBackButtonPress} onRegister={handleRegister} />
+      ) : isLoggedIn ? (
+        <UserInfoView username={username} onLogout={handleLogout} />
       ) : (
         <>
           <Text style={styles.heading}>Welcome to EpicHWSauce</Text>
