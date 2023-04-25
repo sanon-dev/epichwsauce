@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { Button } from "react-native-paper";
+import { Button, DefaultTheme } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import LoginView from "./login_view.js";
 import RegisterView from "./register_view.js";
 import UserInfoView from "./user_info_view.js";
-import { DefaultTheme } from 'react-native-paper';
-
 
 function HomeScreen() {
   const [showLogin, setShowLogin] = useState(false);
@@ -62,7 +60,6 @@ function HomeScreen() {
           <View style={styles.buttonContainer}>
             <Button
               mode="contained"
-              color="#2196F3"
               style={styles.button}
               onPress={handleLoginButtonPress}
             >
@@ -71,7 +68,6 @@ function HomeScreen() {
             </Button>
             <Button
               mode="contained"
-              color="#F44336"
               style={styles.button}
               onPress={handleRegisterButtonPress}
             >

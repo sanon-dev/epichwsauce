@@ -1,8 +1,6 @@
 import React from "react";
-import { AppRegistry } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { name as appName } from "./app.json";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import HomeScreen from "./components/home_screen";
 import ScanUploadScreen from "./components/scan_upload";
@@ -10,7 +8,7 @@ import SavedScansScreen from "./components/saved_scans";
 
 const Tab = createBottomTabNavigator();
 
-export default function App() {
+const App = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -41,4 +39,4 @@ export default function App() {
   );
 }
 
-AppRegistry.registerComponent(appName, () => Main);
+export default App;
