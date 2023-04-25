@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import axios from "axios";
+import LoadingOverlay from './loading_overlay';
 
 function RegisterView({ onBackPress, onRegister }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleRegister = async () => {
     try {
-      const response = await axios.post("http://127.0.0.1:8000/api/v1/api/profiles/", {
+      setIsLoading(true);
+      const url = "http://127.0.0.1:8000/api/v1/api/profiles/";
+      const response = await axios.post(url, {
         username: username,
         email: email,
         password: password
@@ -22,11 +26,15 @@ function RegisterView({ onBackPress, onRegister }) {
       } else {
         console.log(`Error: ${error.message}`);
       }
-    }      
+      onBackPress();
+    } finally {
+      setIsLoading(false);
+    }   
   };
 
   return (
     <View style={styles.formContainer}>
+      <LoadingOverlay visible={isLoading} />
       <TextInput
         style={styles.input}
         placeholder="Username"
