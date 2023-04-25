@@ -25,7 +25,7 @@ function LoginView({ onBackPress }) {
         value={password}
       />
       <View style={styles.buttonContainer}>
-        <Button title="Cancel" onPress={onBackPress} color="#888" />
+        <Button title="Cancel" onPress={onBackPress} color="#FF7043" />
         <Button title="Login" onPress={handleLogin} />
       </View>
     </View>
