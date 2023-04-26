@@ -2,10 +2,10 @@ import React, {useEffect, useState} from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import { styles } from "../styles.js";
+import { styles } from "../../styles.js";
 import * as DocumentPicker from "expo-document-picker";
 
-function ScanUploadScreen() {
+function ScanUpload(token) {
   const [fileUri, setFileUri] = useState(null);
 
   const pickDocument = async () => {
@@ -58,4 +58,4 @@ function ScanUploadScreen() {
     </View>
   );
 }
-export default ScanUploadScreen;
+export default ScanUpload;

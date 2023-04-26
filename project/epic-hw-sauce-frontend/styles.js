@@ -20,6 +20,7 @@ export const styles = StyleSheet.create({
   },
   savedScansContainer: {
     flex: 1,
+    marginTop: 40,
     backgroundColor: DefaultTheme.colors.background,
     padding: 10,
   },

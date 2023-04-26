@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import { View, StyleSheet, TextInput, Button } from "react-native";
 import axios from "axios";
-import LoadingOverlay from "./loading_overlay";
+import LoadingOverlay from "../../components/loading_overlay";
 import { DefaultTheme } from 'react-native-paper';
 
-function LoginView({ onBackPress, onLogin }) {
+function Login({onLogin}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -18,16 +18,14 @@ function LoginView({ onBackPress, onLogin }) {
         password: password,
       });
       const token = response.data.auth_token;
-      // save the token in local storage or state management library
       console.log(token);
-      onLogin(email);
+      onLogin(email, token); // for now, we use email as the username to display
     } catch (error) {
       if (error.response && error.response.status) {
         console.log(`Error: ${error.response.status}`);
       } else {
         console.log(`Error: ${error.message}`);
       }
-      onBackPress();
     } finally {
       setIsLoading(false);
     }
@@ -50,7 +48,6 @@ function LoginView({ onBackPress, onLogin }) {
         value={password}
       />
       <View style={styles.buttonContainer}>
-        <Button title="Cancel" onPress={onBackPress} color="#FF7043" />
         <Button title="Login" onPress={handleLogin} />
       </View>
     </View>
@@ -81,4 +78,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginView;
+export default Login;

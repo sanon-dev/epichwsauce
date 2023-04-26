@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, Button } from "react-native";
+import { View, StyleSheet, TextInput, Button } from "react-native";
 import axios from "axios";
-import LoadingOverlay from "./loading_overlay";
-import { DefaultTheme } from 'react-native-paper';
+import LoadingOverlay from "../../components/loading_overlay";
+import { DefaultTheme } from "react-native-paper";
 
-function RegisterView({ onBackPress, onRegister }) {
+function Register({ onRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -19,15 +19,15 @@ function RegisterView({ onBackPress, onRegister }) {
         email: email,
         password: password,
       });
-      console.log(response.data);
-      onRegister(username);
+      const token = response.data.token;
+      console.log(token);
+      onRegister(username, token);
     } catch (error) {
       if (error.response && error.response.status) {
         console.log(`Error: ${error.response.status}`);
       } else {
         console.log(`Error: ${error.message}`);
       }
-      onBackPress();
     } finally {
       setIsLoading(false);
     }
@@ -56,7 +56,6 @@ function RegisterView({ onBackPress, onRegister }) {
         value={password}
       />
       <View style={styles.buttonContainer}>
-        <Button title="Cancel" onPress={onBackPress} color="#FF7043" />
         <Button title="Register" onPress={handleRegister} color="#2196F3" />
       </View>
     </View>
@@ -87,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterView;
+export default Register;

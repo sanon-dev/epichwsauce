@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
-function UserInfoView({ username, onLogout }) {
+function Home( {username, onLogout} ) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Welcome, {username}!</Text>
@@ -25,4 +25,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UserInfoView;
+export default Home;
