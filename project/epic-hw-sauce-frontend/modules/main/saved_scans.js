@@ -1,13 +1,8 @@
-import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { Avatar } from "react-native-paper";
 import { styles } from "../../styles.js";
+import ScanDetails from "./scan_details.js";
 
 const DATA = [
   {
@@ -34,10 +29,17 @@ const DATA = [
 ];
 
 function SavedScans(token) {
+  const [view, setView] = useState("list");
+  const [selectedItem, setSelectedItem] = useState(null);
+
   const renderItem = ({ item }) => (
     <TouchableOpacity
       style={styles.itemContainer}
-      onPress={() => console.log(`Pressed item ${item.title}`)}
+      onPress={() => {
+        setSelectedItem(item);
+        setView("details");
+        console.log(`Pressed item ${item.title}`);
+      }}
     >
       <Avatar.Image source={{ uri: item.thumbnail }} size={64} />
       <View style={styles.itemContent}>
@@ -54,13 +56,17 @@ function SavedScans(token) {
 
   return (
     <View style={styles.savedScansContainer}>
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        style={styles.listContainer}
-        ListEmptyComponent={renderEmptyComponent} // Use ListEmptyComponent prop
-      />
+      {view === "list" ? (
+        <FlatList
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          style={styles.listContainer}
+          ListEmptyComponent={renderEmptyComponent} // Use ListEmptyCom
+        />
+      ) : (
+        <ScanDetails item={selectedItem} onBack={() => setView("list")} />
+      )}
     </View>
   );
 }

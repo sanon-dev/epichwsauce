@@ -115,4 +115,22 @@ export const styles = StyleSheet.create({
     marginBottom: 10,
     width: "100%",
   },
+  scanDetailsContainer: {
+    flex: 1,
+    backgroundColor: DefaultTheme.colors.background,
+    padding: 10,
+  },
+  scanDetailsTitle: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  scanDetailsResponse: {
+    fontSize: 16,
+    marginBottom: 20,
+  },
+  backButton: {
+    fontSize: 18,
+    color: DefaultTheme.colors.primary,
+  },  
 });
