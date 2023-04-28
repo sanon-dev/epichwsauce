@@ -1,44 +1,42 @@
-import React from "react";
-import { AppRegistry } from "react-native";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { name as appName } from "./app.json";
-import Icon from "react-native-vector-icons/FontAwesome5";
-import HomeScreen from "./components/home_screen";
-import ScanUploadScreen from "./components/scan_upload";
-import SavedScansScreen from "./components/saved_scans";
+import AuthNav from "./modules/auth/auth_nav";
+import MainNav from "./modules/main/main_nav";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { DefaultTheme } from "react-native-paper";
 
-const Tab = createBottomTabNavigator();
+const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [token, setToken] = useState("");
+  const [username, setUsername] = useState("user");
 
-export default function App() {
+  const handleAuth = (username, token) => {
+    setIsAuthenticated(true);
+    setUsername(username);
+    setToken(token);
+  };
+
+  const handleLogout = () => {
+    setToken("");
+    setUsername("user");
+    setIsAuthenticated(false);
+  };
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({ route }) => ({
-          labelStyle: { fontSize: 14 },
-          activeTintColor: "#2196F3",
-          inactiveTintColor: "#999999",
-          tabBarIcon: ({ color, size }) => {
-            let iconName;
-
-            if (route.name === "Home") {
-              iconName = "home";
-            } else if (route.name === "Scan & Upload") {
-              iconName = "camera";
-            } else if (route.name === "Saved Scans") {
-              iconName = "bookmark";
-            }
-
-            return <Icon name={iconName} size={size} color={color} />;
-          },
-        })}
-      >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Scan & Upload" component={ScanUploadScreen} />
-        <Tab.Screen name="Saved Scans" component={SavedScansScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        {isAuthenticated ? (
+          <MainNav username={username} token={token} onLogout={handleLogout} />
+        ) : (
+          <SafeAreaView
+            style={{ flex: 1, backgroundColor: DefaultTheme.colors.background }}
+          >
+            <AuthNav onAuth={handleAuth} />
+          </SafeAreaView>
+        )}
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
-}
+};
 
-AppRegistry.registerComponent(appName, () => Main);
+export default App;
