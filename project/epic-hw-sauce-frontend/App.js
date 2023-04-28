@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import AuthStack from "./modules/auth/auth_stack";
+import AuthNav from "./modules/auth/auth_nav";
 import MainNav from "./modules/main/main_nav";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { DefaultTheme } from "react-native-paper";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const [token, setToken] = useState("");
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState("user");
 
   const handleAuth = (username, token) => {
     setIsAuthenticated(true);
@@ -17,7 +18,7 @@ const App = () => {
 
   const handleLogout = () => {
     setToken("");
-    setUsername("");
+    setUsername("user");
     setIsAuthenticated(false);
   };
 
@@ -27,7 +28,11 @@ const App = () => {
         {isAuthenticated ? (
           <MainNav username={username} token={token} onLogout={handleLogout} />
         ) : (
-          <AuthStack onAuth={handleAuth} />
+          <SafeAreaView
+            style={{ flex: 1, backgroundColor: DefaultTheme.colors.background }}
+          >
+            <AuthNav onAuth={handleAuth} />
+          </SafeAreaView>
         )}
       </NavigationContainer>
     </SafeAreaProvider>

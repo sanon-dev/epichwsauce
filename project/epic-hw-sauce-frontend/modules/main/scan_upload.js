@@ -38,7 +38,6 @@ function ScanUpload(token) {
       <View style={styles.buttonContainer}>
         <Button
           mode="contained"
-          color="#2196F3"
           style={styles.button}
           onPress={() => console.log("Pressed scan")}
         >
@@ -47,7 +46,6 @@ function ScanUpload(token) {
         </Button>
         <Button
           mode="contained"
-          color="#F44336"
           style={styles.button}
           onPress={pickDocument}
         >

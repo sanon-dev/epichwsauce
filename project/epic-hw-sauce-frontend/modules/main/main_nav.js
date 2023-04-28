@@ -1,46 +1,46 @@
-import React, { useState } from "react";
-import { BottomNavigation } from "react-native-paper";
+// MainNav.js
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./home.js";
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from "react-native-vector-icons/FontAwesome5";
 import ScanUpload from "./scan_upload.js";
 import SavedScans from "./saved_scans.js";
 
-function MainNav({username, token, onLogout}) {
-  const [index, setIndex] = useState(0);
-  const [routes] = useState([
-    { key: "home", title: "Home", icon: "home" },
-    { key: "scanUpload", title: "Scan & Upload", icon: "camera" },
-    { key: "savedScans", title: "Saved Scans", icon: "bookmark" },
-  ]);
-  
-  const renderIcon = ({route, color}) => (
-    <Icon name={route.icon} size={24} color={color} />
-  );
+const Tab = createBottomTabNavigator();
 
-  const renderScene = ({ route }) => {
-    switch (route.key) {
-      case "home":
-        return <Home username={username} onLogout={onLogout}/>;
-      case "scanUpload":
-        return <ScanUpload token={token}/>;
-      case "savedScans":
-        return <SavedScans token={token}/>;
-      default:
-        return null;
-    }
-  };
-
+function MainNav({ username, token, onLogout }) {
   return (
-    <BottomNavigation
-      navigationState={{ index, routes }}
-      onIndexChange={setIndex}
-      renderScene={renderScene}
-      renderIcon={renderIcon}
-      activeColor="#2196F3"
-      inactiveColor="#999999"
-      labelStyle={{ fontSize: 14 }}
-    />
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === "Home") {
+            iconName = "home";
+          } else if (route.name === "ScanUpload") {
+            iconName = "camera";
+          } else if (route.name === "SavedScans") {
+            iconName = "bookmark";
+          }
+
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: "#2196F3",
+        tabBarInactiveTintColor: "#999999",
+      })}
+    >
+      <Tab.Screen name="Home">
+        {(props) => <Home {...props} username={username} onLogout={onLogout} />}
+      </Tab.Screen>
+      <Tab.Screen name="ScanUpload">
+        {(props) => <ScanUpload {...props} token={token} />}
+      </Tab.Screen>
+      <Tab.Screen name="SavedScans">
+        {(props) => <SavedScans {...props} token={token} />}
+      </Tab.Screen>
+    </Tab.Navigator>
   );
 }
 
-export default MainNav
+export default MainNav;

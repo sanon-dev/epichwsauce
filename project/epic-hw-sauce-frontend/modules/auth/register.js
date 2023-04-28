@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { View, StyleSheet, TextInput, Button } from "react-native";
 import axios from "axios";
 import LoadingOverlay from "../../components/loading_overlay";
-import { DefaultTheme } from "react-native-paper";
+import { styles } from "../../styles";
 
-function Register({ onRegister }) {
+function Register({ onRegister, setView }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -34,56 +34,39 @@ function Register({ onRegister }) {
   };
 
   return (
-    <View style={styles.formContainer}>
-      <LoadingOverlay visible={isLoading} />
-      <TextInput
-        style={styles.input}
-        placeholder="Username"
-        onChangeText={setUsername}
-        value={username}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        onChangeText={setEmail}
-        value={email}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Password"
-        secureTextEntry={true}
-        onChangeText={setPassword}
-        value={password}
-      />
-      <View style={styles.buttonContainer}>
-        <Button title="Register" onPress={handleRegister} color="#2196F3" />
+    <View style={styles.loginRegisterContainer}>
+      <View style={styles.formContainer}>
+        <LoadingOverlay visible={isLoading} />
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          onChangeText={setUsername}
+          value={username}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          onChangeText={setEmail}
+          value={email}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Password"
+          secureTextEntry={true}
+          onChangeText={setPassword}
+          value={password}
+        />
+        <View style={styles.buttonContainer}>
+          <Button
+            title="Cancel"
+            color="red"
+            onPress={() => setView("welcome")}
+          />
+          <Button title="Register" onPress={handleRegister} color="#2196F3" />
+        </View>
       </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  formContainer: {
-    paddingHorizontal: 20,
-    paddingVertical: 40,
-    backgroundColor: DefaultTheme.colors.background,
-    width: "100%",
-    alignItems: "center",
-  },
-  input: {
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: "#C4C4C4",
-    padding: 10,
-    marginBottom: 10,
-    width: "100%",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 20,
-    width: "100%",
-  },
-});
 
 export default Register;
