@@ -1,17 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { styles } from "../../styles.js";
 import * as DocumentPicker from "expo-document-picker";
+import axios from "axios";
 
-function ScanUpload(token) {
+function ScanUpload({ token }) {
   const [fileUri, setFileUri] = useState(null);
 
   const pickDocument = async () => {
     try {
       const result = await DocumentPicker.getDocumentAsync();
-      if (result.type === 'success') {
+      if (result.type === "success") {
         console.log(
           result.uri,
           result.type, // mime type
@@ -20,12 +21,37 @@ function ScanUpload(token) {
         );
         setFileUri(result.uri);
       } else {
-        console.log('Document selection cancelled');
+        console.log("Document selection cancelled");
       }
     } catch (err) {
-      console.log('Document selection error:', err);
+      console.log("Document selection error:", err);
     }
   };
+
+  const uploadDocument = async () => {
+    try {
+      const formData = new FormData();
+      formData.append("file", {
+        uri: fileUri,
+        name: "document.txt",
+        type: "text/plain",
+      });
+      const response = await axios.post(
+        "https://your-backend-url/documents/upload",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View
       style={[
@@ -53,7 +79,13 @@ function ScanUpload(token) {
           <Text style={styles.buttonText}>Upload</Text>
         </Button>
       </View>
+      {fileUri && (
+        <Button mode="contained" onPress={uploadDocument}>
+          Upload Document
+        </Button>
+      )}
     </View>
   );
 }
+
 export default ScanUpload;
