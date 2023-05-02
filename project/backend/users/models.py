@@ -1,10 +1,17 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
 
 class Profile(models.Model):
-    name = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(unique=True)
+    password = models.CharField(max_length=128)
     bio = models.TextField()
     avatar = models.ImageField(upload_to='avatars', null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.password = make_password(self.password)
+        super(Profile, self).save(*args, **kwargs)
 
 class Document(models.Model):
     title = models.CharField(max_length=255)
