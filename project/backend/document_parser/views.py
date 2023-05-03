@@ -6,8 +6,9 @@ from rest_framework import status
 import io
 from PyPDF2 import PdfFileReader
 
-from .models import ParsedDocument
+from .models import ParsedDocument, Resource
 from users.models import Document
+from openai_integration.openai import get_resources
 
 
 class DocumentParseView(APIView):
@@ -25,22 +26,25 @@ class DocumentParseView(APIView):
         for page in range(pdf_reader.getNumPages()):
             text += pdf_reader.getPage(page).extractText()
 
-        # Split the text into words and count the frequency of each word
-        stop_words = ['the', 'an', 'a', 'of']
-        words = text.split()
-        freq = {}
-        for word in words:
-            if word not in stop_words:
-                if word not in freq:
-                    freq[word] = 0
-                freq[word] += 1
+        # Pass the parsed text to OpenAI to get resources
+        resources = get_resources(text)
 
-        # Sort the words by frequency and return the top 10 most frequent words
-        sorted_words = sorted(freq.items(), key=lambda x: x[1], reverse=True)
-        top_words = [word for word, freq in sorted_words[:10]]
-
-        # Save the parsed document to the database
-        parsed_document = ParsedDocument(document=document, terms=', '.join(top_words))
+        # Save the parsed document and resources to the database
+        parsed_document = ParsedDocument(document=document, terms=', '.join(resources))
         parsed_document.save()
 
-        return Response({'terms': top_words}, status=status.HTTP_201_CREATED)
+        # Save the resources to the database
+        for resource in resources:
+            resource = Resource(parsed_document=parsed_document, title=resource['title'], url=resource['url'])
+            resource.save()
+
+        return Response({'resources': resources}, status=status.HTTP_201_CREATED)
+
+class ResourceListView(APIView):
+    def get(self, request, parsed_document_id):
+        resources = Resource.objects.filter(parsed_document_id=parsed_document_id)
+        serialized_resources = []
+        for resource in resources:
+            serialized_resources.append({'title': resource.title, 'url': resource.url})
+        return Response(serialized_resources)
+

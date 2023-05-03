@@ -15,7 +15,7 @@ function Login({ onLogin, setView }) {
   const handleLogin = async () => {
     try {
       setIsLoading(true);
-      const url = "http://127.0.0.1:8000/api/v1/auth/token/login/";
+      const url = "https://127.0.0.1:8000/api/v1/auth/token/login/";
       const response = await axios.post(url, {
         email: email,
         password: password,

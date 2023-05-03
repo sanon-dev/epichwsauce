@@ -13,7 +13,7 @@ function Register({ onRegister, setView }) {
   const handleRegister = async () => {
     try {
       setIsLoading(true);
-      const url = "http://127.0.0.1:8000/api/v1/api/profiles/";
+      const url = "http://127.0.0.1:8000/api/v1/profiles/";
       const response = await axios.post(url, {
         username: username,
         email: email,

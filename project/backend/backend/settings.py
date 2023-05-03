@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'users',
     'document_parser',
-    'users.apps.UsersConfig',
+    # 'users.apps.UsersConfig',
+    'openai_integration',
 ]
 
 MIDDLEWARE = [
@@ -86,9 +88,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'your_database_name',
-        'USER': 'aj062',
-        'PASSWORD': 'your_database_password',
+        'NAME': 'your-name',
+        'USER': 'your-user',
+        'PASSWORD': 'your-password',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -135,3 +137,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = False
+CORS_ORIGIN_WHITELIST =  [
+    'http://localhost:8000',
+]

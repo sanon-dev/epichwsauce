@@ -42,7 +42,7 @@ function ScanUpload({ token, onSaveScan }) {
       });
   
       const response = await axios.post(
-        'https://your-backend-url/documents/upload',
+        'https://127.0.0.1:8000/api/v1/upload',
         formData,
         {
           headers: {

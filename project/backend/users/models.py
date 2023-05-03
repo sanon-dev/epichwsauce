@@ -5,9 +5,8 @@ class Profile(models.Model):
     username = models.CharField(max_length=255, unique=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
-    bio = models.TextField()
-    avatar = models.ImageField(upload_to='avatars', null=True, blank=True)
-
+    bio = models.TextField(null=True)
+    
     def save(self, *args, **kwargs):
         if not self.id:
             self.password = make_password(self.password)
