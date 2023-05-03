@@ -65,6 +65,7 @@ Ask chat gpt if you encounter some sort of error just copy paste the error messa
         ```
 4. Start backend server
     ```
+    python3 manage.py migrate 
     python3 manage.py runserver
     ```
     notice: if the network doesn't connect on the front end, it's possible that this is due to running the app on your iphone which failed to connect with the computer. In this case, try run the app on the XCode Simulator instead
