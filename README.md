@@ -6,7 +6,9 @@ Notice: The following command assumes you have postgre, npm correctly installed.
 Ask chat gpt if you encounter some sort of error just copy paste the error message and try to follow their soluation
 
 1. Clone the repo
+    ```
    git clone <"link to repo">
+   ```
 2. Configure frontend
    1. Install frontend packagesd
    ```
@@ -50,7 +52,6 @@ Ask chat gpt if you encounter some sort of error just copy paste the error messa
         ```
         3. Set up db 
         ```
-        pg_ctl start -D .
         createuser -s postgres
         psql -U postgres
         CREATE USER user1 WITH PASSWORD 'db_pass';
@@ -66,4 +67,4 @@ Ask chat gpt if you encounter some sort of error just copy paste the error messa
     ```
     python3 manage.py runserver
     ```
-    notice: if the network doesn't connect on the front end, it's possible that this is due to running on your iphone which failed to connect with the computer. In this case, try run the app on the XCode Simulator instead
+    notice: if the network doesn't connect on the front end, it's possible that this is due to running the app on your iphone which failed to connect with the computer. In this case, try run the app on the XCode Simulator instead
