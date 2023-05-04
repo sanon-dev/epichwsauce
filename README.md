@@ -22,16 +22,7 @@ Note: The following command assumes you have postgresql, npm correctly installed
             }
         }
         ```
-    2. Create db
-        1. Go to a local directory (where you want to store db)
-            ```
-            $ initdb .
-            ```
-        2. Edit postgresql.conf
-            ```
-            port = 6969
-            ```
-    3. Set up user
+    2. Set up user
         ```
         $ createuser -s postgres (if you haven't already)
         $ psql -U postgres
@@ -41,6 +32,15 @@ Note: The following command assumes you have postgresql, npm correctly installed
         CREATE DATABASE db1 OWNER user1;
         GRANT ALL PRIVILEGES ON DATABASE db1 TO user1;
         \q
+        ```
+    3. Update postgresql.conf
+        ```
+        port = 6969
+        ```
+        If you can't find the file, try this 
+        ```
+        $ psql -U postgres
+        SHOW config_file;
         ```
     4. Start db
         ```
